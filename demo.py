@@ -30,6 +30,7 @@ print ("args", args)
 
 
 # evaluate
+@torch.no_grad()
 def evaluate(model, image, h2d_time):
     model.eval()
     total_time = 0.0
@@ -37,6 +38,7 @@ def evaluate(model, image, h2d_time):
     for i in range(args.num_iter):
         elapsed = time.time()
         preds = model(image)
+        if torch.cuda.is_available(): torch.cuda.synchronize()
         elapsed = time.time() - elapsed + h2d_time
         if args.profile:
             args.p.step()
