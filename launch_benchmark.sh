@@ -20,6 +20,7 @@ function main {
     # if multiple use 'xxx,xxx,xxx'
     model_name_list=($(echo "${model_name}" |sed 's/,/ /g'))
     batch_size_list=($(echo "${batch_size}" |sed 's/,/ /g'))
+    export DNNL_MAX_CPU_ISA=AVX2_VNNI_2 
 
     # generate benchmark
     for model_name in ${model_name_list[@]}
