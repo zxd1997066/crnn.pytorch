@@ -126,7 +126,7 @@ if __name__ == '__main__':
             main()
     elif args.precision == "float16":
         print('---- Enable AMP float16')
-        with torch.cpu.amp.autocast(enabled=True, dtype=torch.half):
+        with torch.cpu.amp.autocast(enabled=True, dtype=torch.float16):
             main()
     else:
         main()
