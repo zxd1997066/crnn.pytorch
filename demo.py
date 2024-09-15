@@ -25,6 +25,8 @@ parser.add_argument('--profile', dest='profile', action='store_true', help='prof
 parser.add_argument('--quantized_engine', type=str, default=None, help='quantized_engine')
 parser.add_argument('--ipex', dest='ipex', action='store_true', help='ipex')
 parser.add_argument('--jit', dest='jit', action='store_true', help='jit')
+parser.add_argument("--triton_cpu", action='store_true', default=False,
+                    help="enable triton_cpu")
 args = parser.parse_args()
 print ("args", args)
 
@@ -69,6 +71,10 @@ def trace_handler(p):
     p.export_chrome_trace(timeline_file)
 
 def main():
+    if args.triton_cpu:
+        print("run with triton cpu backend")
+        import torch._inductor.config
+        torch._inductor.config.cpu_backend="triton"
     # load model
     model = crnn.CRNN(32, 1, 37, 256)
     if args.device == 'cuda':
