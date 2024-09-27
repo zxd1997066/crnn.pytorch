@@ -71,6 +71,7 @@ def trace_handler(p):
     p.export_chrome_trace(timeline_file)
 
 def main():
+    import torch
     if args.triton_cpu:
         print("run with triton cpu backend")
         import torch._inductor.config
